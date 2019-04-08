@@ -1,0 +1,183 @@
+<div style="background-color:white">
+  <h5 style="background-color: gray;color:ghostwhite;" >Add Task</h5>
+<br>
+<!--<div class="container">
+  <form class="form-horizontal"> -->
+    <div>
+      <label style="margin-left:10%;width:10%">Project</label>
+      <input [(ngModel)]="project" style="width:45%;margin-left: 10px;" disabled class="my-input" type="text">
+      <button style="margin-left:2%;width:7%;border:2px;border-radius: 45%;" [disabled]="isParent" class="my-button" 
+              type="button" (click)="openProjectModal();">Search</button>
+      <!-- Modal -->
+      <div class="modal" id="projectModal" [ngStyle]="{'display':displayProject}">
+        <div class="modal-dialog modal-dialog-scrollable">
+          <div class="modal-content">
+
+            <div class="modal-header">
+              <h4 class="modal-title">Projects</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div>
+                  <label style="margin-left:5%;width:10%">Search</label>
+                  <input [(ngModel)]="searchKey" (input)="searchProjectFromList();" 
+                                                style="width:70%;margin-left: 5%;" class="my-input" type="text">
+                </div>
+                <hr>
+                <div *ngFor="let project of projects">
+                  <label style="margin-left: 5%;width:60%;">{{project.project}}</label>
+                  <input type="radio" name="projectRadios" style="display:inline; width:10%;" (click)="storeProject(project)">
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-info" data-dismiss="modal" (click)="onSelectFromProjectModal()">Select</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="onCloseHandleProjectModal()">Close</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <!-- Modal -->
+  </div> 
+
+    <div>
+      <label style="margin-left:10%;width:10%">Task</label>
+      <input [(ngModel)]="taskName" style="width:55%;margin-left: 10px;" class="my-input" type="text">
+    </div>
+
+    <div>
+      <input [(ngModel)]="isParent" style="width:5%;margin-left: 20%;" class="my-input" type="checkbox">
+      <label style="margin-left:1%;width:10%">Parent Task</label>
+    </div>
+
+    <div>
+      <label for="sliderId" style="margin-left:10%;width:10%">Priority</label>
+      <input [(ngModel)]="sliderPointerVal" id="sliderId" [disabled]="isParent" type="range" class="slider my-input" style="display:inline;width:55%;margin-left: 10px;" 
+      max="30" min="1" step=1 (input)="sliderPointerChange($event.target.value)"/>
+      {{sliderPointerVal}}
+    </div>
+
+    <div>
+      <label style="margin-left:10%;width:10%">Parent Task</label>
+      <input [(ngModel)]="parentName" style="width:45%; margin-left: 10px;" disabled class="my-input" type="text">
+      <button style="margin-left:2%;width:7%;border:2px;border-radius: 45%;" [disabled]="isParent" class="my-button" 
+              type="button" (click)="openParentModal();">Search</button>
+      <!-- Modal -->
+      <div class="modal" id="parentModal" [ngStyle]="{'display':displayParentTask}">
+        <div class="modal-dialog modal-dialog-scrollable">
+          <div class="modal-content">
+
+            <div class="modal-header">
+              <h4 class="modal-title">Tasks</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+              <div>
+                  <label style="margin-left:5%;width:10%">Search</label>
+                  <input [(ngModel)]="searchKey" (input)="searchParentFromList();" 
+                                                style="width:70%;margin-left: 5%;" class="my-input" type="text">
+                </div>
+                <hr>
+                <div *ngFor="let task of tasks">
+                  <label style="margin-left: 5%;width:60%;">{{task.task}}</label>
+                  <input type="radio" name="projectRadios" style="display:inline; width:10%;" (click)="storeTask(task)">
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-info" data-dismiss="modal" (click)="onSelectParentModal()">Select</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="onCloseHandleParentModal()">Close</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <!-- Modal -->
+    </div>
+
+    <div>
+      <label style="margin-left:10%;width:10%">Start Date</label>
+      <input [(ngModel)]="startDate" style="width:15%; margin-left: 10px;" [disabled]="isParent" class="my-input" type="date">
+      <label style="margin-left:15%">End Date</label>
+      <input [(ngModel)]="endDate" style="width:15%; margin-left: 4%;" [disabled]="isParent" class="my-input" type="date">
+    </div>
+
+    <div>
+      <label style="margin-left:10%;width:10%">User</label>
+      <input [(ngModel)]="userName" style="width:45%; margin-left: 10px;" disabled class="my-input" type="text">
+      <button style="margin-left:2%;width:7%;border:2px;border-radius: 45%;" [disabled]="isParent" class="my-button" 
+              type="button" (click)="openUserModal();">Search</button>
+      <!-- Modal -->
+        <div class="modal" id="userModal" [ngStyle]="{'display':displayUser}">
+          <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+
+              <div class="modal-header">
+                <h4 class="modal-title">Tasks</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+
+              <div class="modal-body">
+                <div>
+                  <label style="margin-left:5%;width:10%">Search</label>
+                  <input [(ngModel)]="searchKey" (input)="searchUserFromList();" 
+                                                style="width:70%;margin-left: 5%;" class="my-input" type="text">
+                </div>
+                <hr>
+                <div *ngFor="let user of users">
+                  <label style="margin-left: 5%;width:60%;">{{user.firstName}} {{user.lastName}}</label>
+                  <input type="radio" name="userRadios" style="display:inline; width:10%;" (click)="storeUser(user)">
+                </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal" (click)="onHandleSaveUserModal()">Select</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="onCloseHandleUserModal()">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Modal -->
+      </div>
+    </div>
+
+    <div>
+      <button style="margin-left:21%;border:2px;border-radius: 8%;" class="btn-success" type="submit" [disabled]="(!project || !taskName || !sliderPointerVal || !startDate || !endDate) && !isParent" (click)="addTask();">add task</button>
+      <button style="margin-left:1%;border:2px;border-radius: 8%;" class="my-button" type="submit" (click)="resetPage();">reset</button>
+    </div>
+    <br>
+    </div>
+  <!-- </form> -->
+
+<!-- <br>
+<div class="container">
+  <div class="col-md-12">
+<table style="width: 70%;">
+  <tr style="width: 80%">
+    <td><label>Task</label></td>
+    <td><input type="text" /></td>
+  </tr>
+  <tr style="width: 80%">
+    <td><label>Priority</label></td>
+    <td><input type="range" max="30" min="1" value="{{sliderPointerVal}}" class="slider" step=1 (input)="sliderPointerChange($event.target.value)"
+      /></td>{{ sliderPointerVal }}
+  </tr>
+  <tr style="width: 80%">
+    <td><label>Parent Task</label></td>
+    <td><input type="text" /></td>
+  </tr>
+  <tr style="width: 80%">
+    <td><label>Start Date</label></td>
+    <td><input type="date" /></td>
+  </tr>
+  <tr style="width: 80%">
+    <td><label>End Date</label></td>
+    <td><input type="date" /></td>
+  </tr>
+</table>
+<br>
+<table style="width: 50%">
+  <tr style="width: 80%; text-align: right">
+    <td><button class="btn-primary" type="submit" >add task</button></td>
+    <td><button class="btn-danger" type="reset" >reset</button></td>
+  </tr>
+</table>
+</div>
+</div> -->
