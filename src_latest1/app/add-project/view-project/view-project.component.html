@@ -1,0 +1,32 @@
+<div class="container">
+  <h5 style="background-color: gray;color:ghostwhite;"> View project</h5>
+  <div>
+    <label style="margin-left:10%;width:9%">Search</label>
+    <input [(ngModel)]="searchKey" (input)="searchProjectFromList();" 
+                                      style="width:55%;margin-left: 2%;" class="my-input" type="text">
+  </div>
+  <div>
+    <label style="margin-left:10%;width:10%;">Sort:</label>
+    <button style="margin-left:21%;" class="my-button" type="submit" (click)="sortList('SD');">Start Date</button>
+    <button style="margin-left:2%;" class="my-button" type="submit" (click)="sortList('ED');">End Date</button>
+    <button style="margin-left:2%;" class="my-button" type="submit" (click)="sortList('PR');">Priority</button>
+    <button style="margin-left:2%;" class="my-button" type="submit" (click)="sortList('CM');">Completed</button>
+  </div>
+  <div style="width:90%;margin-left: 10%;" *ngFor="let project of projects">
+    <hr>
+  <div class="row">
+    <div class="col-md-7">
+      <ul class="list-group">
+        <li class="list-group-item"><b>Project: </b>{{project.project}}</li>
+        <li class="list-group-item"><b>No of Task: </b>{{getTaskList()}} {{project.size}} <b> Completed: </b>N</li>
+        <li class="list-group-item"><b>Start Date: </b>{{project.startDate}} <b>End Date: </b>{{project.endDate}}</li>
+      </ul>
+    </div>
+    <div class="col-md-5">
+      <button style="margin-left:35px;width:15%;border:2px;border-radius: 8%;" class="btn-info" type="submit" (click)="editProject(project);">edit</button>
+      <br><br>
+      <button style="margin-left:35px;width:15%;border:2px;border-radius: 8%;" class="btn-danger" type="submit" (click)="deleteProject(project);">delete</button>
+    </div>
+  </div>
+  </div>
+</div>
