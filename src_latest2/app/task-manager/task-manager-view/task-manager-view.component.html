@@ -1,0 +1,93 @@
+<app-task-manager-search (taskDetailsEmitter)="populateTasks($event)" (sortCriteria)="sortList($event)"></app-task-manager-search>
+<div style="background-color:white">
+<h5 style="background-color: gray;color:ghostwhite;" [hidden] = "!show">Task details</h5>
+<div *ngFor="let task of tasks" [hidden]="!show">
+    <div>
+        <label style="margin-left:1%;width:25%">Task Name</label>
+        <label style="margin-left:1%;width:25%">Parent</label>
+        <label style="margin-left:1%;width:7%">Priority</label>
+        <label style="margin-left:1%;width:10%">Start Date</label>
+        <label style="margin-left:1%;width:10%">End Date</label>
+        <!--<label style="margin-left:1%;width:10%">Status</label>-->
+        <label style="margin-left:1%;width:8%"></label>
+        <label style="margin-left:1%;width:8%"></label>
+    </div>
+    <div>
+        <input value="{{task.task}}" [disabled]="task.taskId!==markedIndex" style="width:25%;margin-left: 1%;" class="my-input" type="text">
+        <input value="{{task.parent != null ? task.parent.parentTask : ''}}" [disabled]="task.taskId!==markedIndex" style="width:25%;margin-left: 1%;" class="my-input" type="text">
+        <input value="{{task.priority}}" [disabled]="task.taskId!==markedIndex" style="width:7%;margin-left: 1%;" class="my-view-input" type="number">
+        <input value="{{task.startDate}}" [disabled]="task.taskId!==markedIndex" style="width:10%;margin-left: 1%;" class="my-view-input" type="date">
+        <input value="{{task.endDate}}" [disabled]="task.taskId!==markedIndex" style="width:10%;margin-left: 1%;" class="my-view-input" type="date">
+        <!--<input value="{{task.status}}" disabled style="width:10%;margin-left: 1%;" class="my-view-input" type="text">-->
+        <button class="btn-info" style="margin-left:1%;width:5%;border:2px;border-radius: 8%;" [disabled]="task.status == 'completed'" (click)="markRow(task.taskId);updateTask(task);" >{{task.taskId===markedIndex ? 'save' : 'edit'}}</button>
+        <button class="btn-danger" style="margin-left:3%;width:8%;border:2px;border-radius: 8%;" [disabled]="task.status == 'completed'" (click)="markRow(task.taskId);endTask(task)">End Task</button>
+      </div>
+    <br><br>
+</div>
+</div>
+    
+    
+    
+    <!-- <table style="width: 100%;">
+        <tr>
+          <th><label>#</label></th>
+          <th><label>Task Name</label></th>
+          <th><label>Parent</label></th>
+          <th><label>Priority</label></th>
+          <th><label>Start Date</label></th>
+          <th><label>End Date</label></th>
+          <th><label>User</label></th>
+        </tr>
+      <tr>
+          <td style="width:5%;"><input type="text" value="task.taskId" style="width:90%;" class="my-view-input" disabled/></td>
+          <td><input type="text" value="task.task" style="width:90%;" class="my-view-input" disabled/></td>
+          <td><input type="text" value="task.parent.parentTask" style="width:40%;" class="my-view-input" [disabled]="task.taskId!==markedIndex"/>
+            <button style="margin-left:2px;" [disabled]="task.taskId!==markedIndex" 
+                        type="button" (click)="openParentModal();">...</button> -->
+      <!-- Modal -->
+      <!-- <div class="modal" id="parentModal" [ngStyle]="{'display':displayParentTask}">
+        <div class="modal-dialog modal-dialog-scrollable">
+          <div class="modal-content">
+
+            <div class="modal-header">
+              <h4 class="modal-title">Tasks</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+              <div>
+                  <label style="margin-left:5%;width:1%">Search</label>
+                  <input value="searchKey" (input)="searchTaskFromList();" 
+                                                style="width:70%;margin-left: 5%;" class="my-input" type="text">
+                </div>
+                <hr>
+                <div *ngFor="let task of tasks">
+                  <label style="margin-left: 5%;width:60%;">{{task.task}}</label>
+                  <input type="radio" name="projectRadios" style="display:inline; width:1%;" (click)="storeTask(task)">
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-info" data-dismiss="modal" (click)="onSelectParentModal()">Select</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="onCloseHandleParentModal()">Close</button>
+            </div>
+
+          </div>
+        </div>
+      </div> -->
+          <!-- </td>
+          <td><input type="number" value="task.priority" style="width:90%;" class="my-view-input" [disabled]="task.taskId!==markedIndex"/></td>
+          <td><input type="date" value="task.startDate" style="width:90%;" class="my-view-input" [disabled]="task.taskId!==markedIndex"/></td>
+          <td><input type="date" value="task.endDate" style="width:90%;" class="my-view-input" [disabled]="task.taskId!==markedIndex"/></td>
+          <td><input type="text" value="task.userId.firstName" style="width:90%;" class="my-view-input" [disabled]="task.taskId!==markedIndex"/></td>
+          <td style="width:5%;"><button class="my-button" (click)="markRow(task.taskId);updateTask(task);" >{{task.taskId===markedIndex ? 'save' : 'edit'}}</button></td>
+          <td style="width:8%;"><button class="my-button" (click)="markRow(task.taskId);endTask(task)">End Task</button></td>
+      </tr>
+    </table> -->
+<!--style="width: 90%;margin-left: 5px; margin-right: 5px"-->
+<!-- <td><input type="text" value="task.taskId" style="width:90%;" class="my-view-input" disabled/></td>
+<td><input type="text" value="task.task" style="width:90%;" class="my-view-input"/></td>
+<td><input type="text" value="task.parentTask" style="width:90%;" class="my-view-input"/></td>
+<td><input type="text" value="task.priority" style="width:90%;" class="my-view-input"/></td>
+<td><input type="text" value="task.startDate" style="width:90%;" class="my-view-input"/></td>
+<td><input type="text" value="task.endDate" style="width:90%;" class="my-view-input"/></td>
+<td><button class="my-button">Edit</button></td>
+<td><button class="my-button">End Task</button></td> -->

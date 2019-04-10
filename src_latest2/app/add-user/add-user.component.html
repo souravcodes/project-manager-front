@@ -1,0 +1,24 @@
+<h5 style="background-color: gray;color:ghostwhite;">Add user</h5>
+<div style="background-color:white">
+<br>
+<div class="container">
+  <div>
+    <label style="margin-left:10%;width:10%">First Name</label>
+    <input [(ngModel)]="firstName" style="width:55%;margin-left: 10px;" class="my-input" type="text"><span style="color:red;font-size:10px " [hidden]="firstName"> [First name is mandatory] </span>
+  </div>
+  <div>
+    <label style="margin-left:10%;width:10%">Last Name</label>
+    <input [(ngModel)]="lastName" style="width:55%;margin-left: 10px;" class="my-input" type="text"><span style="color:red;font-size:10px " [hidden]="lastName"> [Last name is mandatory] </span>
+  </div>
+  <div>
+    <label style="margin-left:10%;width:10%">Employee ID</label>
+    <input [(ngModel)]="employeeId" style="width:20%;margin-left: 10px;" class="my-input" type="number"><span style="color:red;font-size:10px " [hidden]="employeeId"> [Employee ID is mandatory] </span>
+  </div>
+  <div>
+    <button style="margin-left:58%;width:8%;border:2px;border-radius: 8%;" class="btn-success" type="submit" (click)="addUser();" [disabled]="!firstName || !lastName || !employeeId">{{addUpdateButtonName}}</button>
+    <button style="margin-left:1%;width:8%;border:2px;border-radius: 8%;" class="my-button" type="submit" (click)="reset();">reset</button>
+  </div>
+  <hr>
+</div>
+<app-view-user [users]="newUsers" (editableUser)="editUserReceiver($event)"></app-view-user>
+</div>

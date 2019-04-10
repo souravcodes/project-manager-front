@@ -1,0 +1,24 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<h3 style="margin-left: 5%;">Project Manager</h3>
+<!--<input id="focusedInput" [(ngModel)]="operation" disabled 
+                           style="background-color: white;
+                                  border: none; 
+                                  margin-left:20px; 
+                                  font-size: 20px;"> -->
+<div class="container" style="background-color: floralwhite">
+  <ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a routerLink="/add-project" class="nav-link" (click)="setOperation('Add Project')" style="font-size: 15px;"><b>Add Project</b></a>
+  </li>
+  <li class="nav-item">
+    <a routerLink="/add" class="nav-link" (click)="setOperation('Add Task')" style="font-size: 15px;"><b>Add Task</b></a>
+  </li>
+  <li class="nav-item">
+    <a routerLink="/add-user" class="nav-link" (click)="setOperation('Add User')" style="font-size: 15px;"><b>Add User</b></a>
+  </li>
+  <li class="nav-item">
+    <a routerLink="/view" class="nav-link" (click)="setOperation('View Task')" style="font-size: 15px;"><b>View Task</b></a>
+  </li>
+</ul>
+    <router-outlet></router-outlet>
+  <div>

@@ -1,0 +1,88 @@
+<div style="background-color:white">
+<h5 style="background-color: gray;color:ghostwhite;" > Add project</h5>
+<br>
+<div class="container">
+  <div>
+    <label style="margin-left:10%;width:10%">Project</label>
+    <input [(ngModel)]="project" style="width:55%;margin-left: 10px;" class="my-input" type="text"><span style="color:red;font-size:10px " [hidden]="project"> [Project name is mandatory] </span>
+  </div>
+  <div>
+    <input [(ngModel)]="setdates" style="width:5%;height:15px;margin-left: 20%;" class="my-input" type="checkbox">
+    <label style="margin-left:1%;width:7%;">Start Date</label>
+    <input [(ngModel)]="startDate" (input)="checkDates();" style="display:inline;" class="my-input" type="date" [disabled]="!setdates"> {{now}}
+    <label style="margin-left:3%;width:6%">End Date</label>
+    <input [(ngModel)]="endDate" (input)="checkDates();" style="display:inline;" class="my-input" type="date" [disabled]="!setdates">
+  </div>
+  <div>
+    <label style="margin-left:10%;width:10%">Priority</label>
+    <input [(ngModel)]="priority" id="sliderId" type="range" class="slider my-input" 
+      style="display:inline;width:55%;margin-left: 10px;" max="30" min="1" step=1 />
+      {{priority}}
+  </div>
+  <div>
+    <label style="margin-left:10%;width:10%">Manager</label>
+    <input [(ngModel)]="manager" disabled style="width:45%;margin-left: 10px;" class="my-input" type="text">
+    <button style="margin-left:2%;width:7%;border:2px;border-radius: 45%;" class="my-button" 
+            type="button" (click)="openUserModal();">Search</button>
+      <!-- Modal -->
+      <div class="modal" id="myModal" [ngStyle]="{'display':displayUser}">
+        <div class="modal-dialog modal-dialog-scrollable">
+          <div class="modal-content">
+
+            <div class="modal-header">
+              <h4 class="modal-title">Modal Heading</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+              <div>
+                  <label style="margin-left:5%;width:10%">Search</label>
+                  <input [(ngModel)]="searchKey" (input)="searchUserFromList();"
+                                                style="width:70%;margin-left: 5%;" class="my-input" type="text">
+                </div>
+                <hr>
+                <div *ngFor="let user of users">
+                  <label style="margin-left: 5%; width:70%;">{{user.firstName}} {{user.lastName}}</label>
+                  <input type="radio" name="userRadios" style="display:inline; width:20%;" (click)="storeUser(user)">
+                </div>
+            </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal" (click)="onHandleSaveUserModal()">Select</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="onCloseHandleUserModal()">Close</button>
+              </div>
+
+          </div>
+        </div>
+      </div>
+      <!-- Modal -->
+  </div>
+  <div>
+    <button style="margin-left:64%;width:8%;border:2px;border-radius: 8%;" [disabled]="!project || !manager || !priority" class="btn-success" type="submit" (click)="addProject();">{{addUpdateButtonName}}</button>
+    <button style="margin-left:1%;width:8%;border:2px;border-radius: 8%;" class="my-button" type="submit" (click)="reset();">reset</button>
+  </div>
+  <hr>
+</div>
+</div>
+<!-- {{!showList ? "show" : "hide"}} <input type="checkbox" [(ngModel)]="showList"> -->
+<app-view-project [projects]="projects" (editableProject)="receiveUpdate($event)"></app-view-project>
+
+ <!-- The Modal data-toggle="modal" data-target="#myModal"-->
+
+
+
+<!--<div class="backdrop" [ngStyle]="{'display':display}"></div>
+<div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':display}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Managers</h4>
+        <button type="button" class="close" style="color:brown;" aria-label="Close" (click)="onCloseHandled()"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <p>Model body text</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="onCloseHandled()" >Close</button>
+      </div>
+    </div>
+  </div>
+</div>-->
